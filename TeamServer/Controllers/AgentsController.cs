@@ -25,7 +25,7 @@ namespace TeamServer.Controllers
         }
 
         [HttpGet("{agentId}")]
-        public IActionResult GetAgents(string agentId)
+        public IActionResult GetAgent(string agentId)
         {
             var agent = _agents.GetAgent(agentId);
             if (agent is null) return NotFound();
@@ -37,10 +37,9 @@ namespace TeamServer.Controllers
         public IActionResult GetTaskResults(string agentId, string taskId)
         {
             var agent = _agents.GetAgent(agentId);
-            if (agent is null) return NotFound("Agent not found.");
+            if (agent is null) return NotFound("Agent not found");
 
             var results = agent.GetTaskResults();
-
             return Ok(results);
         }
 
@@ -48,10 +47,10 @@ namespace TeamServer.Controllers
         public IActionResult GetTaskResult(string agentId, string taskId)
         {
             var agent = _agents.GetAgent(agentId);
-            if (agent is null) return NotFound("Agent not found.");
+            if (agent is null) return NotFound("Agent not found");
 
             var result = agent.GetTaskResult(taskId);
-            if (result is null) return NotFound("Task not found.");
+            if (result is null) return NotFound("Task not found");
 
             return Ok(result);
         }
@@ -62,12 +61,12 @@ namespace TeamServer.Controllers
             var agent = _agents.GetAgent(agentId);
             if (agent is null) return NotFound();
 
-            var task = new AgentTask()
+            var task = new AgentTask
             {
                 Id = Guid.NewGuid().ToString(),
-                Command = request.Command,
                 Arguments = request.Arguments,
-                File = request.File
+                File = request.File,
+                Command = request.Command
             };
 
             agent.QueueTask(task);
