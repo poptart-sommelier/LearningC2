@@ -28,6 +28,8 @@ namespace TeamServer.Models.Listeners
                 _agents.AddAgent(agent);
             }
 
+            agent.CheckIn();
+
             var tasks = agent.GetPendingTasks();
             return Ok(tasks);
         }
@@ -38,7 +40,7 @@ namespace TeamServer.Models.Listeners
                 return null;
 
             // Authorization: Bearer <content base64>
-            encodedMetadata = encodedMetadata.ToString().Substring(0, 7);
+            encodedMetadata = encodedMetadata.ToString().Remove(0, 7);
 
             var json = Encoding.UTF8.GetString(Convert.FromBase64String(encodedMetadata));
             return JsonConvert.DeserializeObject<AgentMetadata>(json);
