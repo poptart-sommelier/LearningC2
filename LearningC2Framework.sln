@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamServer", "TeamServer\TeamServer.csproj", "{68F745C6-AB17-4C12-A337-8E9F18C54B86}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiModels", "ApiModels\ApiModels.csproj", "{1B8CCD64-D199-4EF4-922A-9992D3EE37AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Agent", "Agent\Agent.csproj", "{599405B7-CD3B-43DF-AC3E-23E6C2C00B1B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{68F745C6-AB17-4C12-A337-8E9F18C54B86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68F745C6-AB17-4C12-A337-8E9F18C54B86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68F745C6-AB17-4C12-A337-8E9F18C54B86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68F745C6-AB17-4C12-A337-8E9F18C54B86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B8CCD64-D199-4EF4-922A-9992D3EE37AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B8CCD64-D199-4EF4-922A-9992D3EE37AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B8CCD64-D199-4EF4-922A-9992D3EE37AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B8CCD64-D199-4EF4-922A-9992D3EE37AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{599405B7-CD3B-43DF-AC3E-23E6C2C00B1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{599405B7-CD3B-43DF-AC3E-23E6C2C00B1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{599405B7-CD3B-43DF-AC3E-23E6C2C00B1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{599405B7-CD3B-43DF-AC3E-23E6C2C00B1B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E429F694-C3A2-40A3-9449-EC40066093A1}
+	EndGlobalSection
+EndGlobal
