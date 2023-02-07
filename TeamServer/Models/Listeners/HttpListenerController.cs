@@ -16,7 +16,7 @@ namespace TeamServer.Models.Listeners
             _agents = agents;
         }
 
-        public IActionResult HandleImplant()
+        public async Task<IActionResult> HandleImplant()
         {
             var metadata = ExtractMetadata(HttpContext.Request.Headers);
             if (metadata == null) return NotFound();
@@ -29,6 +29,19 @@ namespace TeamServer.Models.Listeners
             }
 
             agent.CheckIn();
+
+            if (HttpContext.Request.Method == "POST")
+            {
+                string json;
+
+                using (var sr = new StreamReader(HttpContext.Request.Body))
+                {
+                    json = await sr.ReadToEndAsync();
+                }
+
+                var results = JsonConvert.DeserializeObject<IEnumerable<AgentTaskResult>>(json);
+                agent.AddTaskResults(results);
+            }
 
             var tasks = agent.GetPendingTasks();
             return Ok(tasks);

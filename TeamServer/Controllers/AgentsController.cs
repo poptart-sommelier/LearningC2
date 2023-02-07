@@ -34,7 +34,7 @@ namespace TeamServer.Controllers
         }
 
         [HttpGet("{agentId}/tasks")]
-        public IActionResult GetTaskResults(string agentId, string taskId)
+        public IActionResult GetTaskResults(string agentId)
         {
             var agent = _agents.GetAgent(agentId);
             if (agent is null) return NotFound("Agent not found");
