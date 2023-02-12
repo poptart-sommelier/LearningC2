@@ -45,11 +45,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\ChangeDirectory.cs" />
+    <Compile Include="Commands\CreateDirectory.cs" />
+    <Compile Include="Commands\DeleteDirectory.cs" />
     <Compile Include="Commands\ListDirectory.cs" />
+    <Compile Include="Commands\ListProcesses.cs" />
     <Compile Include="Commands\PrintWorkingDirectory.cs" />
+    <Compile Include="Commands\Run.cs" />
+    <Compile Include="Commands\Shell.cs" />
     <Compile Include="Commands\TestCommand.cs" />
+    <Compile Include="Commands\WhoAmI.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Generic.cs" />
+    <Compile Include="Internal\Execute.cs" />
     <Compile Include="Models\AgentCommand.cs" />
     <Compile Include="Models\AgentTask.cs" />
     <Compile Include="Models\AgentTaskResult.cs" />
