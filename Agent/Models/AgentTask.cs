@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 
 namespace Agent.Models
 {
@@ -15,7 +16,15 @@ namespace Agent.Models
         public string[] Arguments { get; set; }
 
         [DataMember(Name = "file")]
-        public byte[] File { get; set; }
+        public string File { get; set; }
 
+        public byte[] FileBytes
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(File)) return new byte[0];
+                return Convert.FromBase64String(File);
+            }
+        }
     }
 }

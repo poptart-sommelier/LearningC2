@@ -4,15 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{599405B7-CD3B-43DF-AC3E-23E6C2C00B1B}</ProjectGuid>
+    <ProjectGuid>{47606254-28D2-4902-A656-1D1593B3F085}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Agent</RootNamespace>
-    <AssemblyName>Agent</AssemblyName>
+    <RootNamespace>TestApp1</RootNamespace>
+    <AssemblyName>TestApp1</AssemblyName>
     <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -23,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -36,7 +36,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,27 +44,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\ChangeDirectory.cs" />
-    <Compile Include="Commands\CreateDirectory.cs" />
-    <Compile Include="Commands\DeleteDirectory.cs" />
-    <Compile Include="Commands\ExecuteAssembly.cs" />
-    <Compile Include="Commands\ListDirectory.cs" />
-    <Compile Include="Commands\ListProcesses.cs" />
-    <Compile Include="Commands\PrintWorkingDirectory.cs" />
-    <Compile Include="Commands\Run.cs" />
-    <Compile Include="Commands\Shell.cs" />
-    <Compile Include="Commands\TestCommand.cs" />
-    <Compile Include="Commands\WhoAmI.cs" />
-    <Compile Include="Extensions.cs" />
-    <Compile Include="Generic.cs" />
-    <Compile Include="Internal\Execute.cs" />
-    <Compile Include="Models\AgentCommand.cs" />
-    <Compile Include="Models\AgentTask.cs" />
-    <Compile Include="Models\AgentTaskResult.cs" />
-    <Compile Include="Models\CommModule.cs" />
-    <Compile Include="Models\AgentMetadata.cs" />
-    <Compile Include="Models\HttpCommModule.cs" />
-    <Compile Include="TokenInformation.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
