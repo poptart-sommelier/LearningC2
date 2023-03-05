@@ -8,7 +8,7 @@ using System.IO;
 
 namespace Agent
 {
-    internal static  class Extensions
+    internal static class Extensions
     {
         public static byte[] Serialise<T>(this T data)
         {

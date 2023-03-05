@@ -1,14 +1,11 @@
 ﻿using Agent.Models;
-using SharpSploit.Generic;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using System.Security.Principal;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
+using Agent.Internal;
 
 namespace Agent
 {
@@ -112,7 +109,7 @@ namespace Agent
                 Username = Environment.UserName,
                 ProcessName = process.ProcessName,
                 ProcessId = process.Id,
-                Integrity = TokenInformation.TokenInfo.GetProcessIntegrityLevel(process),
+                Integrity = TokenInfo.GetProcessIntegrityLevel(process),
                 Architecture = Environment.Is64BitOperatingSystem ? "x64" : "x86"
             };
         }

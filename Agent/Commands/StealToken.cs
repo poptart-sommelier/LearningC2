@@ -1,4 +1,5 @@
 ﻿using Agent.Models;
+using static Agent.Native.Advapi;
 
 using System;
 using System.Diagnostics;
@@ -24,7 +25,7 @@ namespace Agent.Commands
             try
             {
                 // open handle to token
-                if (!Native.Advapi.OpenProcessToken(process.Handle, Native.Advapi.DesiredAccess.TOKEN_ALL_ACCESS, out hToken))
+                if (!Native.Advapi.OpenProcessToken(process.Handle, (uint)DesiredAccess.TOKEN_ALL_ACCESS, out hToken))
                     return "Failed to open process token";
 
                 // duplicate token

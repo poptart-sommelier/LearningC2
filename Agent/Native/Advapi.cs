@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using static Agent.Native.Winnt;
 
 namespace Agent.Native
 {
@@ -17,7 +18,7 @@ namespace Agent.Native
         [DllImport("advapi32.dll")]
         public static extern bool OpenProcessToken(
             IntPtr ProcessHandle,
-            DesiredAccess DesiredAccess,
+            uint DesiredAccess,
             out IntPtr TokenHandle);
 
         [DllImport("advapi32.dll")]
@@ -29,8 +30,36 @@ namespace Agent.Native
             TokenType TokenType,
             out IntPtr phNewToken);
 
+        [DllImport("advapi32.dll", SetLastError = true)]
+        public static extern bool GetTokenInformation(
+            IntPtr TokenHandle,
+            TOKEN_INFORMATION_CLASS TokenInformationClass,
+            IntPtr TokenInformation,
+            uint TokenInformationLength,
+            ref uint ReturnLength);
+
+        [DllImport("advapi32.dll", SetLastError = true)]
+        public static extern bool OpenThreadToken(
+            IntPtr ThreadHandle,
+            uint DesiredAccess,
+            bool OpenAsSelf,
+            ref IntPtr TokenHandle);
+
         [DllImport("advapi32.dll")]
-        public static extern bool ImpersonateLoggedOnUser(IntPtr hToken);
+        public extern static bool DuplicateToken(
+            IntPtr ExistingTokenHandle,
+            int SECURITY_IMPERSONATION_LEVEL,
+            ref IntPtr DuplicateTokenHandle
+            );
+
+        [DllImport("advapi32", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern bool ConvertSidToStringSid(
+        IntPtr pSid,
+        ref string strSid);
+
+        [DllImport("advapi32.dll", SetLastError = true)]
+        public static extern bool ImpersonateLoggedOnUser(
+            IntPtr hToken);
 
         [DllImport("advapi32.dll")]
         public static extern bool RevertToSelf();
@@ -77,29 +106,10 @@ namespace Agent.Native
             TOKEN_ADJUST_DEFAULT = 0x0080,
             TOKEN_ADJUST_SESSIONID = 0x0100,
             TOKEN_READ = (STANDARD_RIGHTS_READ | TOKEN_QUERY),
-
             TOKEN_ALL_ACCESS = (STANDARD_RIGHTS_REQUIRED | TOKEN_ASSIGN_PRIMARY |
             TOKEN_DUPLICATE | TOKEN_IMPERSONATE | TOKEN_QUERY | TOKEN_QUERY_SOURCE |
             TOKEN_ADJUST_PRIVILEGES | TOKEN_ADJUST_GROUPS | TOKEN_ADJUST_DEFAULT |
             TOKEN_ADJUST_SESSIONID)
-        }
-
-        public enum TokenAccess : uint
-        {
-            TOKEN_ASSIGN_PRIMARY = 0x0001,
-            TOKEN_DUPLICATE = 0x0002,
-            TOKEN_IMPERSONATE = 0x0004,
-            TOKEN_QUERY = 0x0008,
-            TOKEN_QUERY_SOURCE = 0x0010,
-            TOKEN_ADJUST_PRIVILEGES = 0x0020,
-            TOKEN_ADJUST_GROUPS = 0x0040,
-            TOKEN_ADJUST_DEFAULT = 0x0080,
-            TOKEN_ADJUST_SESSIONID = 0x0100,
-            TOKEN_ALL_ACCESS_P = 0x000F00FF,
-            TOKEN_ALL_ACCESS = 0x000F01FF,
-            TOKEN_READ = 0x00020008,
-            TOKEN_WRITE = 0x000200E0,
-            TOKEN_EXECUTE = 0x00020000
         }
 
         public enum TokenType
@@ -114,6 +124,32 @@ namespace Agent.Native
             SECURITY_IDENTIFICATION,
             SECURITY_IMPERSONATION,
             SECURITY_DELEGATION
+        }
+
+        [Flags]
+        public enum TokenAccess : uint
+        {
+            STANDARD_RIGHTS_REQUIRED = 0x000F0000,
+            STANDARD_RIGHTS_READ = 0x00020000,
+            TOKEN_ASSIGN_PRIMARY = 0x0001,
+            TOKEN_DUPLICATE = 0x0002,
+            TOKEN_IMPERSONATE = 0x0004,
+            TOKEN_QUERY = 0x0008,
+            TOKEN_QUERY_SOURCE = 0x0010,
+            TOKEN_ADJUST_PRIVILEGES = 0x0020,
+            TOKEN_ADJUST_GROUPS = 0x0040,
+            TOKEN_ADJUST_DEFAULT = 0x0080,
+            TOKEN_ADJUST_SESSIONID = 0x0100,
+            TOKEN_ALL_ACCESS_P = 0x000F00FF,
+            TOKEN_IMPERSONATEUSER = (TOKEN_DUPLICATE | TOKEN_QUERY),
+            TOKEN_READ = (STANDARD_RIGHTS_READ | TOKEN_QUERY),
+            TOKEN_WRITE = 0x000200E0,
+            TOKEN_EXECUTE = 0x00020000,
+            TOKEN_QUERY_ALL = (TOKEN_QUERY | TOKEN_QUERY_SOURCE),
+            TOKEN_ALL_ACCESS = (STANDARD_RIGHTS_REQUIRED | TOKEN_ASSIGN_PRIMARY |
+                TOKEN_DUPLICATE | TOKEN_IMPERSONATE | TOKEN_QUERY | TOKEN_QUERY_SOURCE |
+                TOKEN_ADJUST_PRIVILEGES | TOKEN_ADJUST_GROUPS | TOKEN_ADJUST_DEFAULT |
+                TOKEN_ADJUST_SESSIONID)
         }
     }
 }

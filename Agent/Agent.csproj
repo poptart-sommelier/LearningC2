@@ -69,7 +69,9 @@
     <Compile Include="Models\AgentMetadata.cs" />
     <Compile Include="Models\HttpCommModule.cs" />
     <Compile Include="Native\Advapi.cs" />
-    <Compile Include="TokenInformation.cs" />
+    <Compile Include="Native\Kernel32.cs" />
+    <Compile Include="Internal\TokenInformation.cs" />
+    <Compile Include="Native\Winnt.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

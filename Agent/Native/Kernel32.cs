@@ -92,6 +92,18 @@ namespace Agent.Native
             IntPtr processHandle,
             out bool wow64Process);
 
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern IntPtr OpenProcess(
+        ProcessAccess processAccess,
+            bool bInheritHandle,
+            int processId);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern IntPtr OpenThread(
+            ThreadAccess dwDesiredAccess,
+            bool bInheritHandle,
+            uint dwThreadId);
+
         [Flags]
         public enum AllocationType
         {
@@ -169,5 +181,38 @@ namespace Agent.Native
             public int dwProcessId;
             public int dwThreadId;
         }
+
+        [Flags]
+        public enum ProcessAccess
+        {
+            All = 0x001FFFFF,
+            Terminate = 0x00000001,
+            CreateThread = 0x00000002,
+            VirtualMemoryOperation = 0x00000008,
+            VirtualMemoryRead = 0x00000010,
+            VirtualMemoryWrite = 0x00000020,
+            DuplicateHandle = 0x00000040,
+            CreateProcess = 0x000000080,
+            SetQuota = 0x00000100,
+            SetInformation = 0x00000200,
+            QueryInformation = 0x00000400,
+            QueryLimitedInformation = 0x00001000,
+            Synchronize = 0x00100000
+        }
+
+        [Flags]
+        public enum ThreadAccess
+        {
+            TERMINATE = (0x0001),
+            SUSPEND_RESUME = (0x0002),
+            GET_CONTEXT = (0x0008),
+            SET_CONTEXT = (0x0010),
+            SET_INFORMATION = (0x0020),
+            QUERY_INFORMATION = (0x0040),
+            QUERY_LIMITED = (0x00000800),
+            SET_THREAD_TOKEN = (0x0080),
+            IMPERSONATE = (0x0100),
+            DIRECT_IMPERSONATION = (0x0200)
+        }        
     }
 }
