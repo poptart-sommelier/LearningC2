@@ -56,12 +56,15 @@
     <Compile Include="Commands\RevToSelf.cs" />
     <Compile Include="Commands\Run.cs" />
     <Compile Include="Commands\Shell.cs" />
+    <Compile Include="Commands\ShellCodeInject.cs" />
     <Compile Include="Commands\StealToken.cs" />
     <Compile Include="Commands\TestCommand.cs" />
     <Compile Include="Commands\WhoAmI.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Generic.cs" />
     <Compile Include="Internal\Execute.cs" />
+    <Compile Include="Internal\Injector.cs" />
+    <Compile Include="Internal\SelfInjector.cs" />
     <Compile Include="Models\AgentCommand.cs" />
     <Compile Include="Models\AgentTask.cs" />
     <Compile Include="Models\AgentTaskResult.cs" />
